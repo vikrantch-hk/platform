@@ -2,27 +2,29 @@ package platform.stream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.integration.annotation.InboundChannelAdapter;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.SubscribableChannel;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.stereotype.Component;
 
-@Component
-@ComponentScan(basePackages = {
-        "platform.stream"
-})
+@EnableBinding(OrderSource.Source.class)
 public class OrderSource {
+	private final Log logger = LogFactory.getLog(getClass());
+	Source orderOut;
 
-    private MessageSink orderOut;
+	public OrderSource(Source orderOut) {
+		this.orderOut = orderOut;
+	}
 
-    @Autowired
-    public OrderSource(MessageSink orderOut) {
-        this.orderOut = orderOut;
-    }
+	public void sendOrder(Event event) {
+		logger.info("Event sent: " + event.toString());
+		orderOut.ordersOut().send(new GenericMessage<>(event));
+	}
 
-    public void sendOrder(Event event) {
-        orderOut.ordersOut().send(new GenericMessage<>(event));
-    }
+	public interface Source {
+		@Output
+		MessageChannel ordersOut();
+	}
 }
