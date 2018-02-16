@@ -1,0 +1,60 @@
+originator: KinesisProducer
+server:
+ port: 64399
+management:
+ port: 8082
+ context-path: /manage
+security:
+ user:
+  name: admin
+  password: 2c76788d-e661-49fd-baba-4b41e7c1dd47
+ basic:
+  enabled: false
+
+  
+spring:
+  cloud:
+    stream:
+      instance-count: 2
+      instance-index: 1
+      bindings:
+        ordersOut:
+          destination: testhk
+          content-type: application/json
+        mailBoltChannel:
+          group: hel1
+          destination: testhk
+          content-type: application/json
+          consumer:
+            partitioned: true
+          enabled: false
+        personaChannel:
+          group: hel2
+          destination: testhk
+          content-type: application/json
+          consumer:
+            partitioned: true
+          enabled: true
+
+prop:
+  active: false
+          
+          
+cloud:  
+  aws:  
+    region:  
+      static: ap-south-1
+    credentials:
+      accessKey: AKIAIJ7YHY7KI2ISM64A
+      secretKey: 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
+
+
+logging: 
+  file: D:\RnD\stream-listener-platform\communication-platform\logs.log
+  level:
+    root: INFO
+    com: 
+      amazonaws: INFO
+    org:
+      apache: 
+        http: INFO
