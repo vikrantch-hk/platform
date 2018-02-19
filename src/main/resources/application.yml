@@ -1,62 +1,8 @@
-originator: KinesisProducer
-server:
- port: 64399
-management:
- port: 8082
- context-path: /manage
-security:
- user:
-  name: admin
-  password: 2c76788d-e661-49fd-baba-4b41e7c1dd47
- basic:
-  enabled: false
-
-  
 spring:
-  cloud:
-    stream:
-      instance-count: 2
-      instance-index: 1
-      bindings:
-        ordersOut:
-          destination: testhk2
-          content-type: application/json
-        mailBoltChannel:
-          group: hel1
-          destination: testhk2
-          content-type: application/json
-          consumer:
-            partitioned: true
-          enabled: true
-        personaChannel:
-          group: hel2
-          destination: testhk2
-          content-type: application/json
-          consumer:
-            partitioned: true
-          enabled: true
+  profiles:
+    active: dev
   autoconfigure:
       exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration , org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-  datasource:
-      db-api:
-          db-server: 192.168.70.108
-          db-name: hk_cat
-          url: jdbc:mysql://{db-server}/{db-name}?useUnicode=true&characterEncoding=utf-8
-          username: hkadmin
-          password: admin2K11!
-          driver-class-name: com.mysql.jdbc.Driver
-prop:
-  active: false
-          
-          
-cloud:  
-  aws:  
-    region:  
-      static: ap-south-1
-    credentials:
-      accessKey: AKIAIJ7YHY7KI2ISM64A
-      secretKey: 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
-
 
 logging: 
   file: D:\RnD\stream-listener-platform\communication-platform\logs.log

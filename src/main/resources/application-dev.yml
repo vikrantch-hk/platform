@@ -1,0 +1,52 @@
+# kinesis configuation
+originator: KinesisProducer
+server:
+ port: 64399
+management:
+ port: 8082
+ context-path: /manage
+
+spring:
+  profiles:
+    active: development
+  cloud:
+    stream:
+      instance-count: 2
+      instance-index: 1
+      bindings:
+        ordersOut:
+          destination: testhk2
+          content-type: application/json
+        mailBoltChannel:
+          group: hel1
+          destination: testhk2
+          content-type: application/json
+          consumer:
+            partitioned: true
+          enabled: true
+        personaChannel:
+          group: hel2
+          destination: testhk2
+          content-type: application/json
+          consumer:
+            partitioned: true
+          enabled: true
+
+cloud:  
+  aws:  
+    region:  
+      static: ap-south-1
+    credentials:
+      accessKey: AKIAIJ7YHY7KI2ISM64A
+      secretKey: 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
+
+# datasource configuration
+datasource:
+  db-api:
+      db-server: 192.168.70.108
+      db-name: hk_cat
+      url: jdbc:mysql://{db-server}/{db-name}?useUnicode=true&characterEncoding=utf-8
+      username: hkadmin
+      password: admin2K11!
+      driver-class-name: com.mysql.jdbc.Driver
+      
