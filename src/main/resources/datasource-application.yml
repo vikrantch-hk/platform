@@ -1,0 +1,32 @@
+##spring:
+  ##profiles.active: development
+
+---
+###spring:
+  ##profiles: development
+ # DB_SERVER=192.168.70.108
+#DB_SERVER=192.168.70.114
+#DB_SERVER=192.168.70.132
+#DB_PORT=3306
+#DB_NAME=hk_cat
+#DB_USERID=hkadmin
+#DB_PASSWD=admin2K11!
+
+
+  
+datasource:
+  db-api:
+      db-server: 192.168.70.108
+      db-name: hk_cat
+      url: jdbc:mysql://{db-server}/{db-name}?useUnicode=true&characterEncoding=utf-8
+      username: hkadmin
+      password: admin2K11!
+      driver-class-name: com.mysql.jdbc.Driver
+  #db-contract:
+   #   url: jdbc:oracle:thin:@db_contract_dev
+    #  username: username
+     # password: pwd
+      #driver-class-name: oracle.jdbc.OracleDriver
+      #test-on-borrow: true
+      #validation-query: SELECT 1 FROM dual
+      

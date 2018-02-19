@@ -19,23 +19,32 @@ spring:
       instance-index: 1
       bindings:
         ordersOut:
-          destination: testhk
+          destination: testhk2
           content-type: application/json
         mailBoltChannel:
           group: hel1
-          destination: testhk
-          content-type: application/json
-          consumer:
-            partitioned: true
-          enabled: false
-        personaChannel:
-          group: hel2
-          destination: testhk
+          destination: testhk2
           content-type: application/json
           consumer:
             partitioned: true
           enabled: true
-
+        personaChannel:
+          group: hel2
+          destination: testhk2
+          content-type: application/json
+          consumer:
+            partitioned: true
+          enabled: true
+  autoconfigure:
+      exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration , org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  datasource:
+      db-api:
+          db-server: 192.168.70.108
+          db-name: hk_cat
+          url: jdbc:mysql://{db-server}/{db-name}?useUnicode=true&characterEncoding=utf-8
+          username: hkadmin
+          password: admin2K11!
+          driver-class-name: com.mysql.jdbc.Driver
 prop:
   active: false
           
